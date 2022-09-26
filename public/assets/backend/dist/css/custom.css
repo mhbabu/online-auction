@@ -1,0 +1,38 @@
+.pointer{
+    cursor: pointer;
+}
+.error{
+    color: red !important;
+    border: 1px solid red;
+}
+
+.custom-error{
+    border: 1px solid red;
+}
+
+input[type="radio"].error, input[type="checkbox"].error {
+    outline: 1px solid red;
+}
+
+.required-star:after{
+    color: red;
+    content: " *";
+}
+
+.custom-cursor{
+  cursor: pointer;
+}
+.image-matrix{
+  height: 100px;
+  width: 120px;
+}
+.image-label{
+  width: 120px;
+}
+.error-font-size{
+  font-size: 16px;
+}
+.label-hidden{
+  visibility: hidden;
+  position: absolute;
+}

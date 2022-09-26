@@ -1,0 +1,5 @@
+<?php
+
+/**
+ *	Home Helper  
+ */
