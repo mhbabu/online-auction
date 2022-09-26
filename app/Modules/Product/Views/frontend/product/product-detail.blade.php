@@ -61,7 +61,7 @@
                                 <input class="biding-price inputBox" type="number" name="biding_price" placeholder="Enter your price more than {{ $maxBidingPrice->price > 0 ? $maxBidingPrice->price : $product->price  }} Tk" required>
                                 @if(in_array($product->category_id,[1,3]) && auth()->user())
                                  <button class="eg-btn btn--primary btn--sm submit-btn submitBtn" type="submit">Place Bid</button>
-                                @elseif(array_i && !auth()->user())
+                                @elseif(!auth()->user())
                                  <a class="eg-btn btn--primary btn--sm guard" data-href="{{ url('/login') }}" style="cursor: pointer;padding: 12px 32px;">Place Bid</a>
                                @endif
                             </div>

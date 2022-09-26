@@ -69,12 +69,13 @@
                          class="eg-card auction-card1 wow animate fadeInDown">
                         <div class="auction-img">
                             <img alt="image" src="{{ url($product->photo_path) }}" height="234" width="100%">
+                            <strong>Live</strong>
                             @if($product->user_name)
                                 <div class="author-area">
                                     <div class="author-emo">
                                         <img alt="image" src="{{ !$product->user_photo ? url('assets/backend/img/image.webp') : url('uploads/profile/'.$product->user_photo) }}" title="{{ $product->email }}" height="30" width="30" style="border-radius: 50%;">
                                     </div>
-                                    <div class="author-name" style="overflow: hidden">
+                                    <div class="author-name">
                                         <span>by @ {{ $product->user_name }}</span>
                                     </div>
                                 </div>

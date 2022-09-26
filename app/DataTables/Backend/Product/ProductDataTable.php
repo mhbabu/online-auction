@@ -22,9 +22,9 @@ class ProductDataTable extends DataTable
                 return $data->category_name ? $data->category_name : '-';
             })
             ->addColumn('action', function ($data) {
-                $actionBtn = '<a href="/products/' . Encryption::encodeId($data->id) . '" class="btn btn-sm btn-info" title="Product Details"><i class="fa fa-list-alt"></i> Details</a> ';
-                $actionBtn .= '<a href="/products/' . Encryption::encodeId($data->id) . '/edit/" class="btn btn-sm btn-primary" title="Edit Product"><i class="fa fa-edit"></i> Edit</a> ';
-                $actionBtn .= '<a href="/products/' . Encryption::encodeId($data->id) . '/delete/" class="btn btn-sm btn-danger action-delete" title="Delete Product"><i class="fa fa-trash"></i> Delete</a>';
+                $actionBtn = '<a href="/admin/products/' . Encryption::encodeId($data->id) . '" class="btn btn-sm btn-info" title="Product Details"><i class="fa fa-list-alt"></i> Details</a> ';
+                $actionBtn .= '<a href="/admin/products/' . Encryption::encodeId($data->id) . '/edit/" class="btn btn-sm btn-primary" title="Edit Product"><i class="fa fa-edit"></i> Edit</a> ';
+                $actionBtn .= '<a href="/admin/products/' . Encryption::encodeId($data->id) . '/delete/" class="btn btn-sm btn-danger action-delete" title="Delete Product"><i class="fa fa-trash"></i> Delete</a>';
                 return $actionBtn;
             })
             ->addColumn('status', function ($data) {

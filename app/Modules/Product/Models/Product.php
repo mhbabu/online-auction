@@ -33,9 +33,18 @@ class Product extends Model
 
     public static function getProductList()
     {
-        $query = Product::leftJoin('product_categories', 'product_categories.id', 'products.category_id')
-            ->leftJoin('product_types','product_types.id','=','products.type_id')
-            ->where('products.is_archive', false);
+        $userType = auth()->user()->user_type === '1x101';
+        if($userType){
+            $query = Product::leftJoin('product_categories', 'product_categories.id', 'products.category_id')
+                ->leftJoin('product_types','product_types.id','=','products.type_id')
+                ->where('products.is_archive', false);
+        }else{
+            $query = Product::leftJoin('product_categories', 'product_categories.id', 'products.category_id')
+                ->leftJoin('product_types','product_types.id','=','products.type_id')
+                ->where('products.is_archive', false)
+                ->where('products.created_by',auth()->user()->id);
+        }
+
         return $query->orderBy('products.id', 'desc');
     }
 
