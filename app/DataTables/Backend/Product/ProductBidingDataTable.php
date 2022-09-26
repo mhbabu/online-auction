@@ -39,6 +39,7 @@ class ProductBidingDataTable extends DataTable
         $data = $query->select([
             'bidings.*',
             'products.title as product_title',
+            'products.product_code',
             'users.name',
             'users.email'
         ]);
@@ -79,6 +80,7 @@ class ProductBidingDataTable extends DataTable
     protected function getColumns()
     {
         return [
+            'product code' => ['data' => 'product_code', 'name' => 'products.product_code', 'orderable' => true, 'searchable' => true],
             'product title' => ['data' => 'product_title', 'name' => 'products.title', 'orderable' => true, 'searchable' => true],
             'name'          => ['data' => 'name', 'name' => 'users.name', 'orderable' => true, 'searchable' => true],
             'email'         => ['data' => 'email', 'name' => 'users.email', 'orderable' => true, 'searchable' => true],

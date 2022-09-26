@@ -45,7 +45,7 @@
             <div class="col-xl-6 col-lg-5">
                 <div class="product-details-right  wow fadeInDown" data-wow-duration="1.5s" data-wow-delay=".2s">
                     <h2><small>Biding Type : </small> <strong>{{ $product->product_category_name }}</strong></h2>
-                    <h3>{{ $product->title }}</h3>
+                    <h3>{{ $product->title }} - ({{ $product->product_code }})</h3>
                     <p class="para">{{ $product->description }}</p>
                     <h4>Bidding Price: <span>BDT {{ $product->price }} Tk</span></h4>
                     @if($maxBidingPrice->price)

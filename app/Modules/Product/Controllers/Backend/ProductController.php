@@ -12,6 +12,7 @@ use App\Modules\Settings\Models\Settings;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Carbon;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Str;
 use Illuminate\Validation\Rule;
 
@@ -93,6 +94,12 @@ class ProductController extends Controller
             foreach ($photos as $this->photo)
                 Settings::StorePhoto($this->referenceType, $this->referenceId, $this->photo, $this->dimensions);
         }
+
+        $productCode = "P-";
+        DB::statement("update products, products as table2  SET products.product_code=
+            ( select concat('$productCode', LPAD( IFNULL(MAX(SUBSTR(table2.product_code,-6,5) )+1,0),5,'0')) as product_code
+            from (select * from products ) as table2 where table2.id!='$product->id' and table2.product_code like '$productCode%')
+            where products.id='$product->id' and table2.id='$product->id'");
 
         return redirect(route('admin.products.index'))->with('flash_success', 'Product created successfully.');
     }
@@ -206,7 +213,8 @@ class ProductController extends Controller
         $product->deleted_at = Carbon::now();
         $product->save();
 
-        Photo::where('reference_type','product')->where('reference_id',$decodedId)->update(['is_archive'=>1]);
+        Photo::where('reference_type','product')->where('reference_id',$decodedId)->update(['is_archive' => 1]);
+
         session()->flash('flash_success', 'Product deleted successfully!');
     }
 }

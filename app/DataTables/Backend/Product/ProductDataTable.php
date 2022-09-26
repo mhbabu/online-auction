@@ -22,9 +22,9 @@ class ProductDataTable extends DataTable
                 return $data->category_name ? $data->category_name : '-';
             })
             ->addColumn('action', function ($data) {
-                $actionBtn = '<a href="/admin/products/' . Encryption::encodeId($data->id) . '" class="btn btn-sm btn-info" title="Product Details"><i class="fa fa-list-alt"></i> Details</a> ';
-                $actionBtn .= '<a href="/admin/products/' . Encryption::encodeId($data->id) . '/edit/" class="btn btn-sm btn-primary" title="Edit Product"><i class="fa fa-edit"></i> Edit</a> ';
-                $actionBtn .= '<a href="/admin/products/' . Encryption::encodeId($data->id) . '/delete/" class="btn btn-sm btn-danger action-delete" title="Delete Product"><i class="fa fa-trash"></i> Delete</a>';
+                $actionBtn = '<a href="/products/' . Encryption::encodeId($data->id) . '" class="btn btn-sm btn-info" title="Product Details"><i class="fa fa-list-alt"></i> Details</a> ';
+                $actionBtn .= '<a href="/products/' . Encryption::encodeId($data->id) . '/edit/" class="btn btn-sm btn-primary" title="Edit Product"><i class="fa fa-edit"></i> Edit</a> ';
+                $actionBtn .= '<a href="/products/' . Encryption::encodeId($data->id) . '/delete/" class="btn btn-sm btn-danger action-delete" title="Delete Product"><i class="fa fa-trash"></i> Delete</a>';
                 return $actionBtn;
             })
             ->addColumn('status', function ($data) {
@@ -84,6 +84,7 @@ class ProductDataTable extends DataTable
     protected function getColumns()
     {
         return [
+            'product_code'  => ['data' => 'product_code', 'name' => 'products.product_code', 'orderable' => true, 'searchable' => true],
             'title'         => ['data' => 'title', 'name' => 'products.title', 'orderable' => true, 'searchable' => true],
             'category'      => ['data' => 'category_name', 'name' => 'product_categories.name', 'orderable' => true, 'searchable' => true],
             'type'          => ['data' => 'type_name', 'name' => 'product_types.name', 'orderable' => true, 'searchable' => true],

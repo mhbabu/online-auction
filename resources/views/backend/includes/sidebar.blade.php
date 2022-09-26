@@ -18,7 +18,6 @@
                     </a>
                 </li>
 
-                @if(auth()->user()->user_type == '1x101')
                 <li class="nav-item has-treeview {{ (request()->is('admin/product*') ? 'menu-open' : '') }}">
                     <a href="#" class="nav-link {{ (request()->is('admin/product*') ? 'active' : '') }}">
                         <i class="nav-icon fab fa-product-hunt"></i>
@@ -31,6 +30,7 @@
                                 <p>Products</p>
                             </a>
                         </li>
+                        @if(auth()->user()->user_type == '1x101')
                         <li class="nav-item">
                             <a href="{{ route('admin.product.categories.index') }}" class="nav-link {{ (request()->is('admin/product/categories*') ? 'active' : '') }}">
                                 <i class="far fa-circle nav-icon"></i>
@@ -43,10 +43,11 @@
                                 <p>Product Types</p>
                             </a>
                         </li>
+                        @endif
                     </ul>
                 </li>
 
-
+                @if(auth()->user()->user_type == '1x101')
                 <li class="nav-item has-treeview {{ (request()->is('admin/users*') ? 'menu-open' : '') }}">
                     <a href="#" class="nav-link {{ (request()->is('admin/users*') ? 'active' : '') }}">
                         <i class="nav-icon fas fa-users"></i>

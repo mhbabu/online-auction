@@ -25,6 +25,9 @@ Route::group(['prefix'=>'admin','module' => 'Product', 'middleware' => ['web','a
         'edit'      => 'admin.product.types.edit',
         'update'    => 'admin.product.types.update'
     ]]);
+});
+
+Route::group(['prefix'=>'admin','module' => 'Product', 'middleware' => ['web','auth'], 'namespace' => 'App\Modules\Product\Controllers\Backend'], function() {
 
     /*
      * Product Routes
