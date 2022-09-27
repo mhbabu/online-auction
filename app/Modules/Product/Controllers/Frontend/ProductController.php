@@ -26,6 +26,8 @@ class ProductController extends Controller
             ->leftJoin('users','users.id','=','bidings.user_id')
             ->where('products.category_id', 1)
             ->where('products.sold_status', 0)
+            ->where('products.status', 1)
+            ->where('products.is_archive', 0)
             ->orderBy('products.id', 'desc')
             ->groupBy('products.id')
             ->get([
@@ -67,6 +69,8 @@ class ProductController extends Controller
                 ->leftJoin('users','users.id','=','bidings.user_id')
                 ->where('products.category_id', $decodedCategoryId)
                 ->where('products.sold_status', 0)
+               ->where('products.status', 1)
+               ->where('products.is_archive', 0)
                 ->orderBy('products.id', 'desc')
                 ->groupBy('products.id')
                 ->get([

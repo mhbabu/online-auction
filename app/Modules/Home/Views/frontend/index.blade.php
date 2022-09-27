@@ -69,7 +69,6 @@
                          class="eg-card auction-card1 wow animate fadeInDown">
                         <div class="auction-img">
                             <img alt="image" src="{{ url($product->photo_path) }}" height="234" width="100%">
-                            <strong>Live</strong>
                             @if($product->user_name)
                                 <div class="author-area">
                                     <div class="author-emo">
@@ -80,6 +79,11 @@
                                     </div>
                                 </div>
                             @endif
+                            <div style="position: absolute; top: 30px;left: 83%;">
+                                <a href="{{ route('product-details',$product->slug) }}" class="font-weight-bold" style="font-size: 25px; font-weight: 700; color: red">
+                                    Live
+                                </a>
+                            </div>
                         </div>
                         <div class="auction-content">
                             <h4><a href="{{ route('product-details',$product->slug) }}">{{ $product->title  }}</a></h4>

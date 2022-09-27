@@ -47,6 +47,11 @@
                                                 </div>
                                             </div>
                                         @endif
+                                        <div style="position: absolute; top: 30px;left: 83%;">
+                                            <a href="{{ route('product-details',$product->slug) }}" class="font-weight-bold" style="font-size: 25px; font-weight: 700; color: red">
+                                                Live
+                                            </a>
+                                        </div>
                                     </div>
                                     <div class="auction-content">
                                         <h4><a href="{{ route('product-details',$product->slug) }}">{{ $product->title  }}</a></h4>

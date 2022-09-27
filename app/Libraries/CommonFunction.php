@@ -164,8 +164,8 @@ class CommonFunction {
         return Product::leftJoin('photos',function ($query){
             $query->on('photos.reference_id','=','products.id');
             $query->where('photos.reference_type','=','product');
-            $query->where('photos.status','=',1);
-            $query->where('photos.is_archive','=',0);
+            $query->where('photos.status',1);
+            $query->where('photos.is_archive',0);
         })
             ->leftJoin('product_categories', 'product_categories.id', '=', 'products.category_id');
     }

@@ -33,9 +33,11 @@
                     @if($productPhotos->count())
                         @foreach($productPhotos as $index => $photo)
                             <div class="tab-pane big-image fade show @if(!$index) active @endif" id="gallery-img-{{ $index }}">
+                                @if($product->category_id == 1)
                                 <div class="auction-gallery-timer d-flex align-items-center justify-content-center flex-wrap">
-                                    <h3 id="countdown-timer-{{ $index }}">&nbsp;</h3>
+                                    <h3 id="countdown-timer-{{ $index }}" style="font-size: 25px; font-weight: 700; color: red">Live</h3>
                                 </div>
+                                @endif
                                 <img alt="image" src="{{ url($photo->path) }}" class="img-fluid" height="120" width="94">
                             </div>
                         @endforeach
