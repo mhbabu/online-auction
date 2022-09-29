@@ -3,6 +3,7 @@
 namespace App\Modules\Home\Controllers\Frontend;
 
 use App\Libraries\CommonFunction;
+use App\Modules\Page\Models\AboutUs;
 use App\Modules\Settings\Models\Slider;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
@@ -59,12 +60,6 @@ class HomeController extends Controller
         CommonFunction::setCompanyInfo();
 
         return view("Home::frontend.index",$data);
-    }
-
-
-    public function aboutUs(){
-
-        dd("About Us");
     }
 
     public function contact(){
