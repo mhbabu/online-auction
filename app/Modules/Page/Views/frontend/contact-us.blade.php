@@ -58,16 +58,17 @@
                             <h3>Get in Touch</h3>
                             <p class="para">Feel free to ask me any question or let's do to talk about our future collaboration.</p>
                         </div>
-                        <form action="#">
+                        <form action="{{ route('contact-us') }}" method="post">
+                            @csrf
                             <div class="row">
                                 <div class="col-xl-6 col-lg-12 col-md-6">
                                     <div class="form-inner">
-                                        <input type="text" placeholder="Your Name :">
+                                        <input type="text" name="name" placeholder="Your Name :">
                                     </div>
                                 </div>
                                 <div class="col-xl-6 col-lg-12 col-md-6">
                                     <div class="form-inner">
-                                        <input type="email" placeholder="Your Email :">
+                                        <input type="email" name="email" placeholder="Your Email :">
                                     </div>
                                 </div>
                                 <div class="col-xl-6 col-lg-12 col-md-6">
@@ -77,7 +78,7 @@
                                 </div>
                                 <div class="col-xl-6 col-lg-12 col-md-6">
                                     <div class="form-inner">
-                                        <input type="text" placeholder="Subject :">
+                                        <input type="text" name="subject" placeholder="Subject :">
                                     </div>
                                 </div>
                                 <div class="col-12">

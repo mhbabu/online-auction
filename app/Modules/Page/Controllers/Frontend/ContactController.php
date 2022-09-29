@@ -31,6 +31,7 @@ class ContactController extends Controller
         $contact->subject   = $request->input('subject');
         $contact->message   = $request->input('message');
         $contact->save();
-        return redirect(route('contact-us'))->with('flash_success', 'Message send successfully.');
+
+        return redirect()->back()->with('success','Message send successfully.');
     }
 }
