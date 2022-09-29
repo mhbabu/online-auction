@@ -35,7 +35,7 @@
 Route::group(['module' => 'Page', 'middleware' => ['web'], 'namespace' => 'App\Modules\Page\Controllers\Frontend'], function () {
     Route::get('help-pages/{pageName}','PageController@index')->name('help-page');
     Route::get('contact-us','ContactController@index')->name('contact-us');
-    Route::Post('contact-us','ContactController@contactUsStore')->name('contact-us');
+    Route::post('contact-us','ContactController@contactUsStore')->name('contact-us');
 
     Route::get('/about-us','AboutUsController@index')->name('about-us');
 });

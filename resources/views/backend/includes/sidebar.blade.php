@@ -82,36 +82,7 @@
                                 <p>About Us</p>
                             </a>
                         </li>
-                      <li class="nav-item">
-                          <a href="{{ route('admin.pages','privacy-policy') }}" class="nav-link {{ (request()->is('admin/pages/privacy-policy*') ? 'active' : '') }}">
-                              <i class="far fa-circle nav-icon"></i>
-                              <p>Privacy Policy</p>
-                          </a>
-                      </li>
-                      <li class="nav-item">
-                        <a href="{{ route('admin.pages','terms-and-conditions') }}" class="nav-link {{ (request()->is('admin/pages/terms-and-conditions*') ? 'active' : '') }}">
-                            <i class="far fa-circle nav-icon"></i>
-                            <p>Terms & Conditions</p>
-                        </a>
-                      </li>
-                      <li class="nav-item">
-                        <a href="{{ route('admin.pages','cookie-policy') }}" class="nav-link {{ (request()->is('admin/pages/cookie-policy*') ? 'active' : '') }}">
-                            <i class="far fa-circle nav-icon"></i>
-                            <p>Cookie Policy</p>
-                        </a>
-                      </li>
-                      <li class="nav-item">
-                        <a href="{{ route('admin.pages','purchasing-policy') }}" class="nav-link {{ (request()->is('admin/pages/purchasing-policy*') ? 'active' : '') }}">
-                            <i class="far fa-circle nav-icon"></i>
-                            <p>Purchasing Policy</p>
-                        </a>
-                      </li>
-                      <li class="nav-item">
-                        <a href="{{ route('admin.fqas.index') }}" class="nav-link {{ (request()->is('admin/fqas*') ? 'active' : '') }}">
-                            <i class="far fa-circle nav-icon"></i>
-                            <p>FQAS</p>
-                        </a>
-                      </li>
+
                       <li class="nav-item">
                         <a href="{{ route('admin.contact-info.index') }}" class="nav-link {{ (request()->routeIs('admin.contact-info.index') ? 'active' : '') }}">
                             <i class="far fa-circle nav-icon"></i>
@@ -133,28 +104,10 @@
                         <p>Settings<i class="right fas fa-angle-left"></i></p>
                     </a>
                     <ul class="nav nav-treeview">
-                      <li class="nav-item">
-                          <a href="{{ route('admin.settings.newsletters.index') }}" class="nav-link {{ (request()->is('admin/settings/newsletters*') ? 'active' : '') }}">
-                              <i class="far fa-circle nav-icon"></i>
-                              <p>Newsletter</p>
-                          </a>
-                      </li>
-                        <li class="nav-item">
-                            <a href="{{ route('admin.settings.appearance.index') }}" class="nav-link {{ (request()->is('admin/settings/appearance*') ? 'active' : '') }}">
-                                <i class="far fa-circle nav-icon"></i>
-                                <p>Appearance</p>
-                            </a>
-                        </li>
                         <li class="nav-item">
                             <a href="{{ route('admin.settings.sliders.index') }}" class="nav-link {{ (request()->is('admin/settings/sliders*') ? 'active' : '') }}">
                                 <i class="far fa-circle nav-icon"></i>
                                 <p>Sliders</p>
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a href="{{ route('admin.settings.advertisements.index') }}" class="nav-link {{ (request()->is('admin/settings/advertisements*') ? 'active' : '') }}">
-                                <i class="far fa-circle nav-icon"></i>
-                                <p>Advertisement</p>
                             </a>
                         </li>
                     </ul>
