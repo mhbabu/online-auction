@@ -40,21 +40,33 @@ class HomeController extends Controller
             'users.photo as user_photo'
         ]);
 
-        $data['upComingProducts'] = CommonFunction::productInfo()
-            ->select('products.*', 'product_categories.id as product_category_id', 'product_categories.name as product_category_name', 'photos.path as photo_path')
-            ->where('products.category_id', 2)
-            ->where('products.sold_status', 0)
-            ->orderBy('products.id', 'desc')
-            ->groupBy('products.id')
-            ->paginate(20);
+       $data['upComingProducts'] = CommonFunction::productInfo()
+        ->where('products.category_id', 2)
+        ->where('products.sold_status', 0)
+       ->where('products.status', 1)
+       ->where('products.is_archive', 0)
+        ->orderBy('products.id', 'desc')
+        ->groupBy('products.id')
+        ->get([
+            'products.*',
+            'product_categories.id as product_category_id',
+            'product_categories.name as product_category_name',
+            'photos.path as photo_path'
+        ]);
 
-        $data['prebidingProducts'] = CommonFunction::productInfo()
-            ->select('products.*', 'product_categories.id as product_category_id', 'product_categories.name as product_category_name', 'photos.path as photo_path')
-            ->where('products.category_id', 3)
-            ->where('products.sold_status', 0)
-            ->orderBy('products.id', 'desc')
-            ->groupBy('products.id')
-            ->paginate(20);
+      $data['prebidingProducts'] = CommonFunction::productInfo()
+        ->where('products.category_id', 3)
+        ->where('products.sold_status', 0)
+       ->where('products.status', 1)
+       ->where('products.is_archive', 0)
+        ->orderBy('products.id', 'desc')
+        ->groupBy('products.id')
+        ->get([
+            'products.*',
+            'product_categories.id as product_category_id',
+            'product_categories.name as product_category_name',
+            'photos.path as photo_path'
+        ]);
 
         $data['sliders'] = Slider::take(5)->orderBy('id','desc')->get();
         CommonFunction::setCompanyInfo();

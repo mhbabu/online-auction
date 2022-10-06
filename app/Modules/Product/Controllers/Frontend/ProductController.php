@@ -22,40 +22,52 @@ class ProductController extends Controller
      */
     public function index(){
         $data['liveProducts'] = CommonFunction::productInfo()
-            ->leftJoin('bidings','bidings.product_id','=','products.id')
-            ->leftJoin('users','users.id','=','bidings.user_id')
-            ->where('products.category_id', 1)
-            ->where('products.sold_status', 0)
-            ->where('products.status', 1)
-            ->where('products.is_archive', 0)
-            ->orderBy('products.id', 'desc')
-            ->groupBy('products.id')
-            ->get([
-                'products.*',
-                'product_categories.id as product_category_id',
-                'product_categories.name as product_category_name',
-                'photos.path as photo_path',
-                DB::raw('MAX(bidings.price) as biding_price'),
-                'users.name as user_name',
-                'users.email',
-                'users.photo as user_photo'
-            ]);
+        ->leftJoin('bidings','bidings.product_id','=','products.id')
+        ->leftJoin('users','users.id','=','bidings.user_id')
+        ->where('products.category_id', 1)
+        ->where('products.sold_status', 0)
+       ->where('products.status', 1)
+       ->where('products.is_archive', 0)
+        ->orderBy('products.id', 'desc')
+        ->groupBy('products.id')
+        ->get([
+            'products.*',
+            'product_categories.id as product_category_id',
+            'product_categories.name as product_category_name',
+            'photos.path as photo_path',
+             DB::raw('MAX(bidings.price) as biding_price'),
+            'users.name as user_name',
+            'users.email',
+            'users.photo as user_photo'
+        ]);
 
-        $data['upComingProducts'] = CommonFunction::productInfo()
-            ->select('products.*', 'product_categories.id as product_category_id', 'product_categories.name as product_category_name', 'photos.path as photo_path')
-            ->where('products.category_id', 2)
-            ->where('products.sold_status', 0)
-            ->orderBy('products.id', 'desc')
-            ->groupBy('products.id')
-            ->paginate(20);
+       $data['upComingProducts'] = CommonFunction::productInfo()
+        ->where('products.category_id', 2)
+        ->where('products.sold_status', 0)
+       ->where('products.status', 1)
+       ->where('products.is_archive', 0)
+        ->orderBy('products.id', 'desc')
+        ->groupBy('products.id')
+        ->get([
+            'products.*',
+            'product_categories.id as product_category_id',
+            'product_categories.name as product_category_name',
+            'photos.path as photo_path'
+        ]);
 
-        $data['prebidingProducts'] = CommonFunction::productInfo()
-            ->select('products.*', 'product_categories.id as product_category_id', 'product_categories.name as product_category_name', 'photos.path as photo_path')
-            ->where('products.category_id', 3)
-            ->where('products.sold_status', 0)
-            ->orderBy('products.id', 'desc')
-            ->groupBy('products.id')
-            ->paginate(20);
+      $data['prebidingProducts'] = CommonFunction::productInfo()
+        ->where('products.category_id', 3)
+        ->where('products.sold_status', 0)
+       ->where('products.status', 1)
+       ->where('products.is_archive', 0)
+        ->orderBy('products.id', 'desc')
+        ->groupBy('products.id')
+        ->get([
+            'products.*',
+            'product_categories.id as product_category_id',
+            'product_categories.name as product_category_name',
+            'photos.path as photo_path'
+        ]);
 
         return view("Product::frontend.product.index",$data);
     }
@@ -84,13 +96,19 @@ class ProductController extends Controller
                     'users.photo as user_photo'
                 ]);
         else
-        $data['products'] = CommonFunction::productInfo()
-            ->select('products.*', 'product_categories.id as product_category_id', 'product_categories.name as product_category_name', 'photos.path as photo_path')
-            ->where('products.category_id', $decodedCategoryId)
-            ->where('products.sold_status', 0)
-            ->orderBy('products.id', 'desc')
-            ->groupBy('products.id')
-            ->paginate(20);
+			$data['products'] = CommonFunction::productInfo()
+				->where('products.category_id', $decodedCategoryId)
+				->where('products.sold_status', 0)
+				->where('products.status', 1)
+				->where('products.is_archive', 0)
+				->orderBy('products.id', 'desc')
+				->groupBy('products.id')
+				->get([
+					'products.*',
+					'product_categories.id as product_category_id',
+					'product_categories.name as product_category_name',
+					'photos.path as photo_path'
+				]);
 
         return view("Product::frontend.product.category-product",$data);
     }

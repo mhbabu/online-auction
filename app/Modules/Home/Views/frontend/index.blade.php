@@ -118,15 +118,6 @@
             @if($prebidingProducts->count() > 0)
                 <div class="row gy-4 mb-60 d-flex justify-content-center">
                     @foreach($prebidingProducts as $product)
-{{--                        @php--}}
-{{--                            $value = '90060';--}}
-{{--                            $dt = \Carbon\Carbon::now();--}}
-{{--                            $days = $dt->diffInDays($dt->copy()->addSeconds($value));--}}
-{{--                            $hours = $dt->diffInHours($dt->copy()->addSeconds($value)->subDays($days));--}}
-{{--                            $minutes = $dt->diffInMinutes($dt->copy()->addSeconds($value)->subDays($days)->subHours($hours));--}}
-{{--                            echo CarbonInterval::days($days)->hours($hours)->minutes($minutes)->forHumans();--}}
-{{--                        @endphp--}}
-{{--                    {{ $diff->H . ' ' . $diff->i . ' ' . $diff->s }}--}}
 
                         <div class="col-lg-4 col-md-6 col-sm-10">
                             <div data-wow-duration="1.5s" data-wow-delay=".4s" class="eg-card auction-card1 wow animate fadeInDown">
@@ -152,8 +143,8 @@
             @endif
         </div>
     </div>
-
-    <div class="upcoming-seciton pb-80">
+             
+    {{--   <div class="upcoming-seciton pb-80"> --}}
         <img alt="image" src="assets/frontend/images/bg/section-bg.png" class="img-fluid section-bg" />
         <div class="container">
             <div class="row d-flex justify-content-center">
