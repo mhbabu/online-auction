@@ -47,10 +47,10 @@
     </div>
 
     <div class="live-auction pb-60" style="margin-top: 50px">
-        <img alt="image" src="assets/frontend/images/bg/section-bg.png" class="img-fluid section-bg">
+        <img alt="image" src="{{ url('assets/frontend/images/bg/section-bg.png') }}" class="img-fluid section-bg">
         <div class="container position-relative">
-            <img alt="image" src="assets/frontend/images/bg/dotted1.png" class="dotted1">
-            <img alt="image" src="assets/frontend/images/bg/dotted1.png" class="dotted2">
+            <img alt="image" src="{{ url('assets/frontend/images/bg/dotted1.png') }}" class="dotted1">
+            <img alt="image" src="{{ url('assets/frontend/images/bg/dotted1.png') }}" class="dotted2">
             <div class="row d-flex justify-content-center">
                 <div class="col-sm-12 col-md-10 col-lg-8 col-xl-6">
                     <div class="section-title1">
@@ -143,8 +143,8 @@
             @endif
         </div>
     </div>
-             
-    {{--   <div class="upcoming-seciton pb-80"> --}}
+
+       <div class="upcoming-seciton pb-80">
         <img alt="image" src="assets/frontend/images/bg/section-bg.png" class="img-fluid section-bg" />
         <div class="container">
             <div class="row d-flex justify-content-center">
