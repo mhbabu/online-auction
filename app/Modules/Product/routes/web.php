@@ -50,6 +50,7 @@ Route::group(['module' => 'Product', 'middleware' => ['web','auth'], 'namespace'
     */
     Route::post('product-bid/{productId}','ProductController@storeBid')->name('place-bid');
     Route::get('customer/bidding-price','ProductController@customerBiddingPrice');
+    Route::get('/send-mail/{productId}','ProductController@sendMail');
 
 });
 

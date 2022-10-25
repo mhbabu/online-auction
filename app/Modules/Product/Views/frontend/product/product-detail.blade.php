@@ -35,7 +35,7 @@
                             <div class="tab-pane big-image fade show @if(!$index) active @endif" id="gallery-img-{{ $index }}">
                                 @if($product->category_id == 1)
                                 <div class="auction-gallery-timer d-flex align-items-center justify-content-center flex-wrap">
-                                    <h3 id="countdown-timer-{{ $index }}" style="font-size: 25px; font-weight: 700; color: red">Live</h3>
+                                    <h3 id="countdown-timer-{{ $index }}" style="font-size: 25px; font-weight: 700; color: red">Live @if($maxBidingPrice->price)<strong style="color: white; margin-left: 3px" value="0" max="10" id="clock"></strong>@endif</h3>
                                 </div>
                                 @endif
                                 <img alt="image" src="{{ url($photo->path) }}" class="img-fluid" height="120" width="94">
@@ -67,6 +67,7 @@
                                  <a class="eg-btn btn--primary btn--sm guard" data-href="{{ url('/login') }}" style="cursor: pointer;padding: 12px 32px;">Place Bid</a>
                                @endif
                             </div>
+                        <label style="margin-top: 10px; font-weight: bold"><input type="checkbox" name="is_confirm" required style="margin-left: 5px"> You have to buy this product if you win this bidding.</label>
                         {!! Form::close() !!}
                     </div>
                 </div>
@@ -82,23 +83,27 @@
         location.href = redirectUrl;
     });
 
-    {{--$('.biding-price').keyup(function (){--}}
+    /***************************************
+     START COUNTDOWN SCRIPTING START HERE
+     *************************************/
+    const maxBidingPrice = "{{ $maxBidingPrice->price }}";
+    const productId = "{{ $product->id }}";
+   if(maxBidingPrice){
+       let timeleft = 10;
 
-    {{--    setTimeout(function(){--}}
-    {{--        const bidingPrice = $(this).val();--}}
-    {{--        const productPrice = "{{ $maxBidingPrice ?? $product->price }}";--}}
+       let downloadTimer = setInterval(function(){
+           if(timeleft <= 0){
+               clearInterval(downloadTimer);
+               document.getElementById("clock").innerHTML = "(Finished)";
+               window.location = "/send-mail/" + productId;
+           } else {
+               document.getElementById("clock").innerHTML = `(${timeleft} seconds)`
+           }
+           timeleft -= 1;
+       }, 1000);
+   }
 
-    {{--        if(bidingPrice <= productPrice){--}}
-    {{--            console.log(bidingPrice);--}}
-    {{--            $('.inputBox').val(0);--}}
-    {{--            $(".inputBox").css("border", "2px solid red","color","red");--}}
-    {{--            $(".submitBtn").attr("disabled", true);--}}
-    {{--            $(".submitBtn").attr("disabled", true);--}}
-    {{--        }else--}}
-    {{--            $('.submitBtn').attr("disabled", false);--}}
 
-    {{--    }, 3000)();--}}
 
-    {{--})--}}
     </script>
 @endsection

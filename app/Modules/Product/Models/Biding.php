@@ -13,7 +13,8 @@ class Biding extends Model
         'user_id',
         'product_id',
         'price',
-        'biding_date'
+        'biding_date',
+        'is_confirm',
     ];
 
     public static function getProductBidingList()

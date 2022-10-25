@@ -19,6 +19,7 @@ class CreateBidingsTable extends Migration
             $table->integer('product_id')->nullable();
             $table->decimal('price',10,2)->nullable();
             $table->dateTime('biding_date')->nullable();
+            $table->tinyInteger('is_confirm')->nullable();
             $table->timestamps();
         });
     }
