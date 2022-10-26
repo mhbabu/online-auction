@@ -12,6 +12,7 @@ use App\Modules\Product\Models\Product;
 use App\Modules\Product\Models\ProductCategory;
 use App\Modules\Settings\Models\EmailQueue;
 use App\Modules\User\Models\User;
+use Illuminate\Database\Eloquent\Model;
 use Illuminate\Http\Request;
 use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\DB;
@@ -26,52 +27,52 @@ class ProductController extends Controller
      */
     public function index(){
         $data['liveProducts'] = CommonFunction::productInfo()
-        ->leftJoin('bidings','bidings.product_id','=','products.id')
-        ->leftJoin('users','users.id','=','bidings.user_id')
-        ->where('products.category_id', 1)
-        ->where('products.sold_status', 0)
-       ->where('products.status', 1)
-       ->where('products.is_archive', 0)
-        ->orderBy('products.id', 'desc')
-        ->groupBy('products.id')
-        ->get([
-            'products.*',
-            'product_categories.id as product_category_id',
-            'product_categories.name as product_category_name',
-            'photos.path as photo_path',
-             DB::raw('MAX(bidings.price) as biding_price'),
-            'users.name as user_name',
-            'users.email',
-            'users.photo as user_photo'
-        ]);
+            ->leftJoin('bidings','bidings.product_id','=','products.id')
+            ->leftJoin('users','users.id','=','bidings.user_id')
+            ->where('products.category_id', 1)
+            ->where('products.sold_status', 0)
+            ->where('products.status', 1)
+            ->where('products.is_archive', 0)
+            ->orderBy('products.id', 'desc')
+            ->groupBy('products.id')
+            ->get([
+                'products.*',
+                'product_categories.id as product_category_id',
+                'product_categories.name as product_category_name',
+                'photos.path as photo_path',
+                DB::raw('MAX(bidings.price) as biding_price'),
+                'users.name as user_name',
+                'users.email',
+                'users.photo as user_photo'
+            ]);
 
-       $data['upComingProducts'] = CommonFunction::productInfo()
-        ->where('products.category_id', 2)
-        ->where('products.sold_status', 0)
-       ->where('products.status', 1)
-       ->where('products.is_archive', 0)
-        ->orderBy('products.id', 'desc')
-        ->groupBy('products.id')
-        ->get([
-            'products.*',
-            'product_categories.id as product_category_id',
-            'product_categories.name as product_category_name',
-            'photos.path as photo_path'
-        ]);
+        $data['upComingProducts'] = CommonFunction::productInfo()
+            ->where('products.category_id', 2)
+            ->where('products.sold_status', 0)
+            ->where('products.status', 1)
+            ->where('products.is_archive', 0)
+            ->orderBy('products.id', 'desc')
+            ->groupBy('products.id')
+            ->get([
+                'products.*',
+                'product_categories.id as product_category_id',
+                'product_categories.name as product_category_name',
+                'photos.path as photo_path'
+            ]);
 
-      $data['prebidingProducts'] = CommonFunction::productInfo()
-        ->where('products.category_id', 3)
-        ->where('products.sold_status', 0)
-       ->where('products.status', 1)
-       ->where('products.is_archive', 0)
-        ->orderBy('products.id', 'desc')
-        ->groupBy('products.id')
-        ->get([
-            'products.*',
-            'product_categories.id as product_category_id',
-            'product_categories.name as product_category_name',
-            'photos.path as photo_path'
-        ]);
+        $data['prebidingProducts'] = CommonFunction::productInfo()
+            ->where('products.category_id', 3)
+            ->where('products.sold_status', 0)
+            ->where('products.status', 1)
+            ->where('products.is_archive', 0)
+            ->orderBy('products.id', 'desc')
+            ->groupBy('products.id')
+            ->get([
+                'products.*',
+                'product_categories.id as product_category_id',
+                'product_categories.name as product_category_name',
+                'photos.path as photo_path'
+            ]);
 
         return view("Product::frontend.product.index",$data);
     }
@@ -80,13 +81,13 @@ class ProductController extends Controller
         $decodedCategoryId = Encryption::decodeId($categoryId);
         $data['category'] = ProductCategory::find($decodedCategoryId);
         if($decodedCategoryId == 1)
-           $data['products'] = CommonFunction::productInfo()
+            $data['products'] = CommonFunction::productInfo()
                 ->leftJoin('bidings','bidings.product_id','=','products.id')
                 ->leftJoin('users','users.id','=','bidings.user_id')
                 ->where('products.category_id', $decodedCategoryId)
                 ->where('products.sold_status', 0)
-               ->where('products.status', 1)
-               ->where('products.is_archive', 0)
+                ->where('products.status', 1)
+                ->where('products.is_archive', 0)
                 ->orderBy('products.id', 'desc')
                 ->groupBy('products.id')
                 ->get([
@@ -100,19 +101,19 @@ class ProductController extends Controller
                     'users.photo as user_photo'
                 ]);
         else
-			$data['products'] = CommonFunction::productInfo()
-				->where('products.category_id', $decodedCategoryId)
-				->where('products.sold_status', 0)
-				->where('products.status', 1)
-				->where('products.is_archive', 0)
-				->orderBy('products.id', 'desc')
-				->groupBy('products.id')
-				->get([
-					'products.*',
-					'product_categories.id as product_category_id',
-					'product_categories.name as product_category_name',
-					'photos.path as photo_path'
-				]);
+            $data['products'] = CommonFunction::productInfo()
+                ->where('products.category_id', $decodedCategoryId)
+                ->where('products.sold_status', 0)
+                ->where('products.status', 1)
+                ->where('products.is_archive', 0)
+                ->orderBy('products.id', 'desc')
+                ->groupBy('products.id')
+                ->get([
+                    'products.*',
+                    'product_categories.id as product_category_id',
+                    'product_categories.name as product_category_name',
+                    'photos.path as photo_path'
+                ]);
 
         return view("Product::frontend.product.category-product",$data);
     }
@@ -122,12 +123,12 @@ class ProductController extends Controller
         $data['product'] = CommonFunction::getSingleProductInfo($slug);
         $data['productPhotos'] = CommonFunction::getSingleProductPhotos($data['product']->id);
         $data['maxBidingPrice'] = Biding::leftJoin('users','users.id','=','bidings.user_id')
-           ->where('bidings.product_id', $data['product']->id)
-           ->first([
-               DB::raw('MAX(price) as price'),
-               'users.name as user_name',
-               'users.id as user_id'
-           ]);
+            ->where('bidings.product_id', $data['product']->id)
+            ->first([
+                DB::raw('MAX(price) as price'),
+                'users.name as user_name',
+                'users.id as user_id'
+            ]);
 
         return view("Product::frontend.product.product-detail", $data);
     }
@@ -157,28 +158,44 @@ class ProductController extends Controller
     }
 
     public function sendMail($productId){
-        $targetBiding = Biding::selectRaw('max(price) as price')->where('product_id', $productId)->first();
-        $product = Product::where('id', $targetBiding->product_id)->update(['sold_status' => 1]);
+        $product = Product::where('id', $productId)->update(['sold_status' => 1]);
         $token = uniqid();
-//        $userName = auth()->user()->name;
-//        $emailData['subject'] = "Winner notification";
-//        $emailData['content'] = "Hello $userName, We would like to inform you that you have won the bitting of our online biding auction system.<br/>
-//        <span style='color: #1164f3'>Your product token is :<strong><code> $token </code></strong></span><br/>
-//        This is a secret token generated by the system.<br/>
-//        But to ensure your own security and convenience, you should never share the token with anyone.<br/><br/>
-//        If you have any questions you may contact with System Admin.";
-//        $emailContent = view("email.content",$emailData)->render();
+        $userName = auth()->user()->name;
 
-        $data = array('name'=>auth()->user()->name);
+        $bodyMsg = "Hi $userName, <br/>
+            <br/>We would like to inform you that you have won the bitting in our online biding auction system. <br/>
+            Your token is : <b>$token</b>. <br/>
+            If you have any query about it, please contact with our system admin. <br/> ";
+        $params = array(
+            'emailBody' => $bodyMsg,
+            'emailSubject' => 'Online Bidding Auction',
+            'emailHeader' => 'Winner Notification',
+            'emailAdd' => auth()->user()->email
+        );
+        $this->sendEmailFromSystem($params);
 
-        Mail::send(['text'=>'mail'], $data, function($message) {
-            $message->to(auth()->user()->email, 'Tutorials Point')->subject
-            ('Laravel Basic Testing Mail');
-            $message->from('xyz@gmail.com','Virat Gandhi');
+        return redirect('/')->with('success',"You have won this bidding successfully. We have also sent you an mail. Thank you !");
+
+    }
+
+
+    public function sendEmailFromSystem($param){
+        $emailBody = $param['emailBody'] ==''? '' :$param['emailBody'] ;
+        $emailHeader = $param['emailHeader'] ==''? '0' :$param['emailHeader'] ;
+        $emailAdd = $param['emailAdd']==''? CommonFunction::auditEmail() :$param['emailAdd'];
+        $emailSubject = $param['emailSubject']==''? '' :$param['emailSubject'];
+        $body_msg = '<span style="color:#000;text-align:justify;"><b>';
+        $body_msg .= $emailBody;
+        $body_msg .= '</span>';
+        $data = array(
+            'header' => $emailHeader,
+            'param' => $body_msg
+        );
+        \Mail::send('email-template', $data, function ($message) use ($emailAdd,$emailSubject,$emailHeader) {
+            $message->from('auction@gmail.com', $emailHeader)
+                ->to($emailAdd)
+                ->subject($emailSubject);
         });
-
-        return redirect('/')->with('success',"You have won this $product->title successfully. We have also send you an mail. Thank you !");
-
     }
 
 
