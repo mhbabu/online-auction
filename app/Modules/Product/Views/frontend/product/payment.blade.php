@@ -1,79 +1,194 @@
-@extends('frontend.layouts.app')
-@section('title') Payment @endsection
-@section('content')
-    <div class="inner-banner">
+<!DOCTYPE html>
+<html>
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <style>
+        body {
+            font-family: Arial;
+            font-size: 17px;
+            padding: 8px;
+        }
+
+        * {
+            box-sizing: border-box;
+        }
+
+        .row {
+            display: -ms-flexbox; /* IE10 */
+            display: flex;
+            -ms-flex-wrap: wrap; /* IE10 */
+            flex-wrap: wrap;
+            margin: 0 -16px;
+        }
+
+        .col-25 {
+            -ms-flex: 25%; /* IE10 */
+            flex: 25%;
+        }
+
+        .col-50 {
+            -ms-flex: 50%; /* IE10 */
+            flex: 50%;
+        }
+
+        .col-75 {
+            -ms-flex: 75%; /* IE10 */
+            flex: 75%;
+        }
+
+        .col-25,
+        .col-50,
+        .col-75 {
+            padding: 0 16px;
+        }
+
+        .container {
+            background-color: #f2f2f2;
+            padding: 5px 20px 15px 20px;
+            border: 1px solid lightgrey;
+            border-radius: 3px;
+        }
+
+        input[type=text] {
+            width: 100%;
+            margin-bottom: 20px;
+            padding: 12px;
+            border: 1px solid #ccc;
+            border-radius: 3px;
+        }
+
+        label {
+            margin-bottom: 10px;
+            display: block;
+        }
+
+        .icon-container {
+            margin-bottom: 20px;
+            padding: 7px 0;
+            font-size: 24px;
+        }
+
+        .btn {
+            background-color: #04AA6D;
+            color: white;
+            padding: 12px;
+            margin: 10px 0;
+            border: none;
+            width: 100%;
+            border-radius: 3px;
+            cursor: pointer;
+            font-size: 17px;
+        }
+
+        .btn:hover {
+            background-color: #45a049;
+        }
+
+        a {
+            color: #2196F3;
+        }
+
+        hr {
+            border: 1px solid lightgrey;
+        }
+
+        span.price {
+            float: right;
+            color: grey;
+        }
+
+        /* Responsive layout - when the screen is less than 800px wide, make the two columns stack on top of each other instead of next to each other (also change the direction - make the "cart" column go on top) */
+        @media (max-width: 800px) {
+            .row {
+                flex-direction: column-reverse;
+            }
+            .col-25 {
+                margin-bottom: 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+<h2>Responsive Checkout Form</h2>
+<p>Resize the browser window to see the effect. When the screen is less than 800px wide, make the two columns stack on top of each other instead of next to each other.</p>
+<div class="row">
+    <div class="col-75">
         <div class="container">
-            <nav aria-label="breadcrumb">
-                <ol class="breadcrumb">
-                    <li class="breadcrumb-item"><a href="{{ url('/') }}">Home</a></li>
-                    <li class="breadcrumb-item">/</li>
-                    <li class="breadcrumb-item active" aria-current="page">Product Details</li>
-                </ol>
-            </nav>
-        </div>
-    </div>
-    <div class="auction-details-section pt-120">
-        <img alt="image" src="{{ url('/assets/frontend/images/bg/section-bg.png') }}" class="img-fluid section-bg-top">
-        <img alt="image" src="{{ url('/assets/frontend/images/bg/section-bg.png') }}" class="img-fluid section-bg-bottom">
-        <div class="container">
-            <div class="row g-4 mb-50">
-                <div class="col-xl-6 col-lg-7 d-flex flex-row align-items-start justify-content-lg-start justify-content-center flex-md-nowrap flex-wrap gap-4">
-                    <ul class="nav small-image-list d-flex flex-md-column flex-row justify-content-center gap-4  wow fadeInDown" data-wow-duration="1.5s" data-wow-delay=".4s">
-                        @if($productPhotos->count())
-                            @foreach($productPhotos as $key => $photo)
-                                <li class="nav-item">
-                                    <div id="details-img-{{ $key }}" data-bs-toggle="pill" data-bs-target="#gallery-img-{{ $key }}" aria-controls="gallery-img-{{ $key }}">
-                                        <img alt="image" src="{{ url($photo->path) }}" class="img-fluid" height="335" width="100%">
-                                    </div>
-                                </li>
-                            @endforeach
-                        @endif
-                    </ul>
-                    <div class="tab-content mb-4 d-flex justify-content-lg-start justify-content-center wow fadeInUp" data-wow-duration="1.5s" data-wow-delay=".4s">
-                        @if($productPhotos->count())
-                            @foreach($productPhotos as $index => $photo)
-                                <div class="tab-pane big-image fade show @if(!$index) active @endif" id="gallery-img-{{ $index }}">
-                                    @if($product->category_id == 1)
-                                        <div class="auction-gallery-timer d-flex align-items-center justify-content-center flex-wrap">
-                                            <h3 id="countdown-timer-{{ $index }}" style="font-size: 25px; font-weight: 700; color: red">Live @if($maxBidingPrice->price)<strong style="color: white; margin-left: 3px" value="0" max="10" id="clock"></strong>@endif</h3>
-                                        </div>
-                                    @endif
-                                    <img alt="image" src="{{ url($photo->path) }}" class="img-fluid" height="120" width="94">
-                                </div>
-                            @endforeach
-                        @endif
-                    </div>
-                </div>
-                <div class="col-xl-6 col-lg-5">
-                    <div class="product-details-right  wow fadeInDown" data-wow-duration="1.5s" data-wow-delay=".2s">
-                        <h2><small>Biding Type : </small> <strong>{{ $product->product_category_name }}</strong></h2>
-                        <h3>{{ $product->title }} - ({{ $product->product_code }})</h3>
-                        <p class="para">{{ $product->description }}</p>
-                        <h4>Bidding Price: <span>BDT {{ $product->price }} Tk</span></h4>
-                        @if($maxBidingPrice->price)
-                            <h5>Bided By: <span>{{ $maxBidingPrice->user_name }} ({{ $maxBidingPrice->price }} Tk)</span></h5>
-                        @endif
-                        <div class="bid-form">
-                            <div class="form-title">
-                                <h5>Bid Now</h5>
-                                <p>Bid Amount : More than {{ $maxBidingPrice->price > 0 ? $maxBidingPrice->price : $product->price }} Tk</p>
+            <form action="/action_page.php">
+
+                <div class="row">
+                    <div class="col-50">
+                        <h3>Billing Address</h3>
+                        <label for="fname"><i class="fa fa-user"></i> Full Name</label>
+                        <input type="text" id="fname" name="firstname" placeholder="John M. Doe">
+                        <label for="email"><i class="fa fa-envelope"></i> Email</label>
+                        <input type="text" id="email" name="email" placeholder="john@example.com">
+                        <label for="adr"><i class="fa fa-address-card-o"></i> Address</label>
+                        <input type="text" id="adr" name="address" placeholder="542 W. 15th Street">
+                        <label for="city"><i class="fa fa-institution"></i> City</label>
+                        <input type="text" id="city" name="city" placeholder="New York">
+
+                        <div class="row">
+                            <div class="col-50">
+                                <label for="state">State</label>
+                                <input type="text" id="state" name="state" placeholder="NY">
                             </div>
-                            {!! Form::open(['route'=>['place-bid', $product->id],'method'=>'post']) !!}
-                            <div class="form-inner gap-2">
-                                <input class="biding-price inputBox" type="number" name="biding_price" placeholder="Enter your price more than {{ $maxBidingPrice->price > 0 ? $maxBidingPrice->price : $product->price  }} Tk" required>
-                                @if(in_array($product->category_id,[1,3]) && auth()->user())
-                                    <button class="eg-btn btn--primary btn--sm submit-btn submitBtn" type="submit">Place Bid</button>
-                                @elseif(!auth()->user())
-                                    <a class="eg-btn btn--primary btn--sm guard" data-href="{{ url('/login') }}" style="cursor: pointer;padding: 12px 32px;">Place Bid</a>
-                                @endif
+                            <div class="col-50">
+                                <label for="zip">Zip</label>
+                                <input type="text" id="zip" name="zip" placeholder="10001">
                             </div>
-                            <label style="margin-top: 10px; font-weight: bold"><input type="checkbox" name="is_confirm" required style="margin-left: 5px"> You have to buy this product if you win this bidding.</label>
-                            {!! Form::close() !!}
                         </div>
                     </div>
+
+                    <div class="col-50">
+                        <h3>Payment</h3>
+                        <label for="fname">Accepted Cards</label>
+                        <div class="icon-container">
+                            <i class="fa fa-cc-visa" style="color:navy;"></i>
+                            <i class="fa fa-cc-amex" style="color:blue;"></i>
+                            <i class="fa fa-cc-mastercard" style="color:red;"></i>
+                            <i class="fa fa-cc-discover" style="color:orange;"></i>
+                        </div>
+                        <label for="cname">Name on Card</label>
+                        <input type="text" id="cname" name="cardname" placeholder="John More Doe">
+                        <label for="ccnum">Credit card number</label>
+                        <input type="text" id="ccnum" name="cardnumber" placeholder="1111-2222-3333-4444">
+                        <label for="expmonth">Exp Month</label>
+                        <input type="text" id="expmonth" name="expmonth" placeholder="September">
+                        <div class="row">
+                            <div class="col-50">
+                                <label for="expyear">Exp Year</label>
+                                <input type="text" id="expyear" name="expyear" placeholder="2018">
+                            </div>
+                            <div class="col-50">
+                                <label for="cvv">CVV</label>
+                                <input type="text" id="cvv" name="cvv" placeholder="352">
+                            </div>
+                        </div>
+                    </div>
+
                 </div>
-            </div>
+                <label>
+                    <input type="checkbox" checked="checked" name="sameadr"> Shipping address same as billing
+                </label>
+                <input type="submit" value="Continue to checkout" class="btn">
+            </form>
         </div>
     </div>
-@endsection
+    <div class="col-25">
+        <div class="container">
+            <h4>Cart <span class="price" style="color:black"><i class="fa fa-shopping-cart"></i> <b>4</b></span></h4>
+            <p><a href="#">Product 1</a> <span class="price">$15</span></p>
+            <p><a href="#">Product 2</a> <span class="price">$5</span></p>
+            <p><a href="#">Product 3</a> <span class="price">$8</span></p>
+            <p><a href="#">Product 4</a> <span class="price">$2</span></p>
+            <hr>
+            <p>Total <span class="price" style="color:black"><b>$30</b></span></p>
+        </div>
+    </div>
+</div>
 
+</body>
+</html>

@@ -174,7 +174,7 @@ class ProductController extends Controller
         );
         $this->sendEmailFromSystem($params);
 
-        return redirect('/')->with('success',"You have won this bidding successfully. We have also sent you an mail. Thank you !");
+        return redirect('/payment')->with('success',"You have won this bidding successfully. We have also sent you an mail. Thank you !");
 
     }
 
@@ -196,6 +196,10 @@ class ProductController extends Controller
                 ->to($emailAdd)
                 ->subject($emailSubject);
         });
+    }
+
+    public function payment(){
+        return view("Product::frontend.product.payment");
     }
 
 
